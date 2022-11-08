@@ -12,10 +12,9 @@ This demonstrates using Redis Gears to average fields as the data is collected.
 ## Description
 
 A backend system is running cash flow scenarios projected across a number of
-years. Each year contributes to the average for the scenario and there can be
-1000s of scenarios. The `create_cashflow.py` script simulates creating this data
-and adds it as a Redis Hash identified as `cash_flow:S:Y` where S is the
-scenario and Y is the year in that scenario. 
+years and contributes to the average for the year. The `create_cashflow.py`
+script simulates creating this data and adds it as a Redis Hash identified as
+`cash_flow:S:Y` where S is the scenario and Y is the year in that scenario.
 
 A Redis Gears recipe watches for `cash_flow:*` keys, updates
 `cash_flow_average:Y`, the cash flow average for year Y across all scenarios.

@@ -4,8 +4,8 @@ import time
 
 import redis
 
-YEARS = 40
-SCENARIOS = 100
+YEARS = 1
+SCENARIOS = 1
 DELAY_YEAR = 0
 DELAY_SCENARIO = 0
 
@@ -21,12 +21,12 @@ def generate_cycle_data(year):
         "best_estimate_liability": random.randrange(100,1000),
     }
 
-r = redis.Redis(host='localhost', port=6379)
+r = redis.Redis(host='localhost', port=12000)
 def send_cash_flow(scenario, scenario_years):
     """Send cash to cache for scenario s"""
 
     for y in scenario_years:
-        r.hset(f'cash_flow:{scenario}:{y["year"]}', mapping=y)
+        r.hset(f'cash_flow:{scenario}:{y["year"]}', mapping = y)
 
 def run_scenarios(scenario, years):
     """Create cash flow for scenarios"""

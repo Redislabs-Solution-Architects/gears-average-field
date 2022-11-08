@@ -5,7 +5,7 @@ This demonstrates using Redis Gears to average fields as the data is collected.
 ## Goals
 
 * Only keep running averages in Redis
-* Minimize bulk loading and batch processing
+* Avoid bulk loading and batch processing
 * Send data to Redis as it is ready
 * Use Redis as the compute and serving engine
 
@@ -15,10 +15,31 @@ A backend system is running cash flow scenarios projected across a number of
 years. Each year contributes to the average for the scenario and there can be
 1000s of scenarios. The `create_cashflow.py` script simulates creating this data
 and adds it as a Redis Hash identified as `cash_flow:S:Y` where S is the
-scenario and Y is the year in that scenario. A Redis Gears recipe watches for
-`cash_flow:*`, updates `cash_flow_average:S`, and adds the
-`cash_flow:S:Y` key to `consumed_keys`, a Redis List indicating it can be deleted.
-A Redis Stream, `run_log` is used to capture log messages.
+scenario and Y is the year in that scenario. 
+
+A Redis Gears recipe watches for `cash_flow:*` keys, updates
+`cash_flow_average:Y`, the cash flow average for year Y across all scenarios.
+The received `cash_flow:S:Y` key is added to `consumed_keys`, a Redis List,
+indicating it can be deleted. 
+
+A Redis Stream, `run_log`, is used to capture log messages.
+
+```python
+
+## Cash flow for scenario 1, year 2
+cash_flow:1:2 = {
+  "year": 1,
+  "net_asset_value": 10,
+  "best_estimate_liability": 100
+}
+
+## Average cash flow for year 1
+cash_flow_average:1 = {
+  "n": 1
+  "avg_net_asset_value": 9
+  "avg_best_estimate_liability": 90
+}
+```
 
 ### Calculating a Running Average
 

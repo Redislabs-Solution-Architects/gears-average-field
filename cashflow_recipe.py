@@ -13,7 +13,7 @@ def process_event(x):
     year = x["key"].split(":")[2]
 
     ## Key for year averages. cash_flow_average:Y
-    year_cash_flow_average = f"cash_flow_average{year}"
+    year_cash_flow_average = f"cash_flow_average:{year}"
 
     ## Redis Gears 1.x is using RESP2 so we get back a list. Convert to dict.
     l = execute("HGETALL", year_cash_flow_average)

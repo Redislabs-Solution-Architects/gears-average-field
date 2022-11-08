@@ -4,8 +4,8 @@ import time
 
 import redis
 
-YEARS = 1
-SCENARIOS = 1
+YEARS = 3
+SCENARIOS = 2
 DELAY_YEAR = 0
 DELAY_SCENARIO = 0
 

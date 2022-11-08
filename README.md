@@ -16,8 +16,8 @@ years. Each year contributes to the average for the scenario and there can be
 1000s of scenarios. The `create_cashflow.py` script simulates creating this data
 and adds it as a Redis Hash identified as `cash_flow:S:Y` where S is the
 scenario and Y is the year in that scenario. A Redis Gears recipe watches for
-`cash_flow:[0-9]+:[0-9]+`, updates `cash_flow_average:S`, and adds the
-`cash_flow*` key to `consumed_keys`, a Redis List indicating it can be deleted.
+`cash_flow:*`, updates `cash_flow_average:S`, and adds the
+`cash_flow:S:Y` key to `consumed_keys`, a Redis List indicating it can be deleted.
 A Redis Stream, `run_log` is used to capture log messages.
 
 ### Calculating a Running Average

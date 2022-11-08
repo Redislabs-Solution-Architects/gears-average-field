@@ -60,4 +60,4 @@ My apologies as I have not Dockerized the data generator yet.
 
 * Async/co-routines
 * Dockerize
-* Time Series and visualiztion
+* Time Series and visualization
